@@ -70,7 +70,7 @@ class Login extends Component {
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
-              value={this.state.username}
+              value={this.state.password}
               onChange={(e) => this.setState({ password: e.target.value })}
             />
           </Form.Group>

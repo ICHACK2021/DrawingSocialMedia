@@ -54,7 +54,7 @@ class Signup extends Component {
 
   render() {
     return (
-      <div className="Login">
+      <div className="Signup">
         <Title/>
         <Form>
           <Form.Group size="lg" controlId="Username">
