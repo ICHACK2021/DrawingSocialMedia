@@ -6,6 +6,7 @@ import CanvasDraw from "react-canvas-draw";
 import { SketchPicker } from "react-color";
 import classNames from "./canvas.css";
 import Title from '../Components/Title';
+import Box from "@material-ui/core/Box";
 
 const validateForm = (username, password) => {
   return 0 < username.length && username.length <= 20 && 0 < password.length && password.length <= 20;
@@ -48,6 +49,12 @@ class Login extends Component {
     email: "",
     emailConfirm: "",
     register: false,
+    color: "#ffc600",
+    width: 128,
+    height: 128,
+    brushRadius: 2,
+    lazyRadius: 0,
+    picture: "",
   };
 
   handleChangeComplete = (color) => {
@@ -56,8 +63,11 @@ class Login extends Component {
 
   render() {
     return (
+      <div>
+      <div>
+      <Title/>
+      </div>
       <div className="Login">
-        <Title/>
         <Form>
           <Form.Group size="lg" controlId="Username">
             <Form.Label>Username</Form.Label>
@@ -133,6 +143,58 @@ class Login extends Component {
             Login
           </Button>
         </Form>
+        +        {this.state.register && 
+        <div>
+          <div className={classNames.tools}>
+            <Button
+              onClick={() => {
+                this.saveableCanvas.clear();
+              }}
+            >
+              Clear
+            </Button>
+            <Button
+              onClick={() => {
+                this.saveableCanvas.undo();
+              }}
+            >
+              Undo
+            </Button>
+            <div>
+              <label>Brush-Radius:</label>
+              <input
+                type="number"
+                value={this.state.brushRadius}
+                onChange={(e) =>
+                  this.setState({ brushRadius: parseInt(e.target.value, 10) })
+                }
+              />
+            </div>
+          </div>
+          <div className="rowColour">
+            <div>
+            <Box border={1}>
+              <CanvasDraw
+                ref={(canvasDraw) => (this.saveableCanvas = canvasDraw)}
+                brushColor={this.state.color}
+                brushRadius={this.state.brushRadius}
+                lazyRadius={this.state.lazyRadius}
+                canvasWidth={this.state.width}
+                canvasHeight={this.state.height}
+                onChange={() =>
+                  this.setState({ picture: this.saveableCanvas.getSaveData() })
+                }
+              />
+              </Box>
+            </div>
+            <SketchPicker
+              color={this.state.color}
+              onChangeComplete={this.handleChangeComplete}
+            />
+          </div>
+        </div>
+      }
+      </div>
       </div>
     );
   }
