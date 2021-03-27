@@ -36,7 +36,7 @@ class Canvas extends Component {
             <div className={classNames.tools}>
           <button
             onClick={() => {
-              sendRequest(this.saveableCanvas.getSaveData());
+              sendRequest(this.saveableCanvas.getSaveData;());
             }}
           >
             Send Post
