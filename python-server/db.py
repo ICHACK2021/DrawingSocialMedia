@@ -105,20 +105,16 @@ class DBHandler:
         )
         return
 
-    def get_posts(self, count, f=-1):
+    def get_posts(self, count=100):
         count = len(self.execute("SELECT * from POSTS;"))
 
-        if(f < 0):
-            f = count
-
-        self.execute(
+        return self.execute(
             """
-                SELECT * from POSTS
-                ORDERED BY id DESC
-                LIMIT %d, %d;
-            """ % (f, count)
+                SELECT USERNAME, IMAGE, DATE from POSTS
+                ORDER BY id DESC
+                LIMIT %d;
+            """ % count
         )
-        return
 
     def add_new_dm(self, sender, reciever, img):
         self.execute(

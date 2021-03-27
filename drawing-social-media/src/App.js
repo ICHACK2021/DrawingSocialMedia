@@ -1,6 +1,7 @@
 import './App.css';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Login from './Pages/Login'
+import Signup from './Pages/Signup';
 
 const App = () => {
 
@@ -10,8 +11,11 @@ const App = () => {
         <Route path="/login">
           <Login />
         </Route>
-        <Route path="/register">
-          <Login />
+        <Route path="/signup">
+          <Signup />
+        </Route>
+        <Route path="/">
+          <button onClick={sendRequest}>click</button>
         </Route>
       </Switch>
     </BrowserRouter>
@@ -22,9 +26,9 @@ const sendRequest = (e) => {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ title: 'aaaa' })
+    body: JSON.stringify()
   };
-  fetch('http://localhost:5000/', requestOptions)
+  fetch('http://localhost:5000/getpost?username=hi&picture=aaaaa', requestOptions)
     .then(response => response.json())
     .then(data => console.log(data));
 }
