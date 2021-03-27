@@ -16,22 +16,25 @@ class Feed extends Component {
 	}
 
     _onSelect = (option) => {
-	    this.setState({isPrivate: option == 'Private Feed'})
+	    this.setState({isPrivate: option.target.value == 'Private Feed'})
 	 };
 
 
 	state = {
         isPrivate: false,
-        posts: getPosts(),
+        posts: this.getPosts(),
     };
     
 	render() {
 		return (
 			<div>
-				<Dropdown options={['Public Feed', 'Private Feed']} onChange={this._onSelect} value={'Public Feed'}/>
+				<select value={this.state.isPrivate ? 'Private Feed' : 'Public Feed'} onChange={this._onSelect}>
+					<option value='Public Feed'>Public Feed</option>
+					<option value='Private Feed'>Private Feed</option>
+				</select>
 				<button
 		            onClick={() => {
-		              this.setState({posts: getPosts()});
+		              this.setState({posts: this.getPosts()});
 		            }}
 		          >
 		            Refresh
