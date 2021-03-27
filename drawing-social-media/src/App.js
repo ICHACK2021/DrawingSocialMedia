@@ -1,6 +1,7 @@
 import './App.css';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Login from './Pages/Login'
+import Signup from './Pages/Signup';
 
 const App = () => {
 
@@ -10,8 +11,8 @@ const App = () => {
         <Route path="/login">
           <Login />
         </Route>
-        <Route path="/register">
-          <Login />
+        <Route path="/signup">
+          <Signup />
         </Route>
       </Switch>
     </BrowserRouter>
