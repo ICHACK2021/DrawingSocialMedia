@@ -3,7 +3,8 @@ import  {Button, Form }  from "react-bootstrap";
 import {Link} from "react-router-dom";
 import "./Signup.css";
 import CanvasDraw from "react-canvas-draw";
-
+import { SketchPicker } from 'react-color';
+import classNames from "./canvas.css";
 
 const validateForm = (username, email, password) => {
     let validRegex = new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g)
@@ -22,16 +23,18 @@ const handlingSubmit = (username, email, password) => {
     .then(data => console.log(data)); // data.status if 0 success else failure
 }
 
+
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("");
-  state = {
-        color: "#ffc600",
-        width: 400,
-        height: 400,
-        brushRadius: 10,
-        lazyRadius: 0
+  const [color, setColor] = useState("#ffc600");
+  const [width, setWidth] = useState(400);
+  const [height, setHeight] = useState(400);
+  const [brushRadius, setBrushRadius] = useState(10);
+
+  const handleChangeComplete = (color) => {
+        setColor(color);
   };
 
   return (
@@ -84,9 +87,9 @@ const Signup = () => {
             <label>Brush-Radius:</label>
             <input
               type="number"
-              value={this.state.brushRadius}
+              value={brushRadius}
               onChange={e =>
-                this.setState({ brushRadius: parseInt(e.target.value, 10) })
+                setBrushRadius(parseInt(e.target.value, 10))
               }
             />
           </div>
@@ -94,17 +97,17 @@ const Signup = () => {
             <div className="rowColour">
             <div>
         <CanvasDraw
-          ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
-          brushColor={this.state.color}
-          brushRadius={this.state.brushRadius}
-          lazyRadius={this.state.lazyRadius}
-          canvasWidth={this.state.width}
-          canvasHeight={this.state.height}
+          ref={canvasDraw => ( saveableCanvas = canvasDraw)}
+          brushColor={color}
+          brushRadius={brushRadius}
+          lazyRadius={0}
+          canvasWidth={width}
+          canvasHeight={height}
         />
         </div>
         <SketchPicker
-            color={ this.state.color }
-            onChangeComplete={ this.handleChangeComplete }
+            color={ color }
+            onChangeComplete={ handleChangeComplete }
           />
         </div>
         </div>
