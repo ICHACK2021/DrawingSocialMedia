@@ -2,6 +2,7 @@ import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Login from "./Pages/Login";
 import Canvas from "./Pages/Canvas";
+import Post from "./Pages/Post"
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 
@@ -11,6 +12,9 @@ const App = () => {
       <Switch>
         <Route path="/canvas">
           <Canvas />
+        </Route>
+        <Route path="/post">
+          <Post />
         </Route>
         <Route path="/">
           <Login />
