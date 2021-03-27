@@ -15,7 +15,7 @@ const handlingSubmit = (username, password) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify()
   }).then(response => response.json())
-    .then(data => console.log(data));
+    .then(data => console.log(data)); // data.status if 0 success else failure
 }
 
 const Login = () => {
