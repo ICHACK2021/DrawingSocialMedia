@@ -47,9 +47,9 @@ const Login = () => {
         </Button>
         <Link to="/signup">
           <p/>
-        <Button>
+        <div>
             Signup
-        </Button>
+        </div>
         </Link>
       </Form>
     </div>
