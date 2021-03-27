@@ -10,9 +10,9 @@ const sendRequest = (saveData) => {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify()
+    body: JSON.stringify(saveData)
   };
-  fetch(`http://localhost:5000/newpost?username=${localStorage.getItem("username")}&picture=${saveData}`, requestOptions)
+  fetch(`http://localhost:5000/newpost?username=${localStorage.getItem("username")}`, requestOptions)
     .then(response => response.json())
     .then(data => console.log(data));
 }

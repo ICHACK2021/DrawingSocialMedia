@@ -48,7 +48,7 @@ class DBHandler:
         out = self.execute(
             """
             INSERT INTO USERS (EMAIL, USERNAME, PASSWORD, PFP)
-            VALUES ("%s", "%s", "%s", "%s");
+            VALUES ("%s", "%s", "%s", %s);
             """
             % (email, username, password, picture)
         )
@@ -100,7 +100,7 @@ class DBHandler:
         self.execute(
             """
             INSERT INTO POSTS (USERNAME, IMAGE, DATE)
-            VALUES("%s", "%s", "%s")
+            VALUES("%s", '%s', "%s")
             """ % (username, image, date)
         )
         return

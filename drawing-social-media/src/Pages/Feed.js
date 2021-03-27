@@ -9,6 +9,13 @@ class Feed extends Component {
 
 	getPosts = () => {
 		var elements = [];
+		fetch(`http://localhost:5000/getpost`,
+		{
+		  method: 'POST',
+		  headers: { 'Content-Type': 'application/json' },
+		  body: JSON.stringify()
+		}).then(response => response.json())
+		.then(data => console.log(data));
 		//For post in feed, add <Post saveData=getSaveData/> to elements
 		return elements;
 	};

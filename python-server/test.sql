@@ -3,4 +3,5 @@
 -- INSERT INTO USERS (ID, EMAIL, USERNAME, PASSWORD) VALUES (null, "fakeuser3@fake.com", "fakeuser3", "fakeuser3");
 
 
-SELECT * FROM USERS;
+DELETE FROM POSTS;
+SELECT * From POSTS;

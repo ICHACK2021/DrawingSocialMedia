@@ -1,6 +1,7 @@
 from flask import json
 from db import DBHandler
 import time
+import json
 import flask
 from flask import request, jsonify
 from flask_cors import CORS
@@ -57,7 +58,7 @@ def run():
                 status = 11
             else:
                 db_handler.add_new_user(
-                    args['username'], args['password'], args['email'], args['picture'])
+                    args['username'], args['password'], args['email'], args["picture"].replace("\\", ""))
         return jsonify({"status": status, "message": STATUS[status]})
 
     @app.route('/newpost', methods=['POST'])
@@ -66,11 +67,9 @@ def run():
         status = 0
         if 'username' not in args:
             status = 1
-        elif 'picture' not in args:
-            status = 4
         else:
             db_handler.add_new_post(
-                args["username"], args["picture"], time.strftime('%Y-%m-%d %H:%M:%S'))
+                args["username"], request.data.decode("utf-8"), time.strftime('%Y-%m-%d %H:%M:%S'))
 
         return jsonify({"status": status, "message": STATUS[status]})
 
@@ -78,7 +77,7 @@ def run():
     def get():
         status = 0
         posts = list(map(post_to_json, db_handler.get_posts()))
-        return jsonify({"status": status, "message": STATUS[status], "posts": posts})
+        return {"status": status, "message": STATUS[status], "posts": posts}
 
     app.run()
 
