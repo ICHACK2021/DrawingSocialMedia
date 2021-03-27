@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import  {Button, Form }  from "react-bootstrap";
 import {Link} from "react-router-dom";
 import "./Signup.css";
+import CanvasDraw from "react-canvas-draw";
 
 
 const validateForm = (username, email, password) => {
@@ -25,6 +26,13 @@ const Signup = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("");
+  state = {
+        color: "#ffc600",
+        width: 400,
+        height: 400,
+        brushRadius: 10,
+        lazyRadius: 0
+  };
 
   return (
     <div className="Login">
@@ -48,7 +56,6 @@ const Signup = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Group>
-
         <Form.Group size="lg" controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
@@ -57,7 +64,50 @@ const Signup = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-
+        <div>
+            <div className={classNames.tools}>
+          <button
+            onClick={() => {
+              this.saveableCanvas.clear();
+            }}
+          >
+            Clear
+          </button>
+          <button
+            onClick={() => {
+              this.saveableCanvas.undo();
+            }}
+          >
+            Undo
+          </button>
+          <div>
+            <label>Brush-Radius:</label>
+            <input
+              type="number"
+              value={this.state.brushRadius}
+              onChange={e =>
+                this.setState({ brushRadius: parseInt(e.target.value, 10) })
+              }
+            />
+          </div>
+        </div>
+            <div className="rowColour">
+            <div>
+        <CanvasDraw
+          ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
+          brushColor={this.state.color}
+          brushRadius={this.state.brushRadius}
+          lazyRadius={this.state.lazyRadius}
+          canvasWidth={this.state.width}
+          canvasHeight={this.state.height}
+        />
+        </div>
+        <SketchPicker
+            color={ this.state.color }
+            onChangeComplete={ this.handleChangeComplete }
+          />
+        </div>
+        </div>
         <Button size="lg" onClick={() => handlingSubmit(username, email, password)} disabled={!validateForm(username, email, password)}>
           Signup
         </Button>
