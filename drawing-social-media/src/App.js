@@ -1,11 +1,13 @@
-import './App.css';
+import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Login from './Pages/Login'
-import Signup from './Pages/Signup';
-import Canvas from './Pages/Canvas'
+import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
+import Canvas from "./Pages/Canvas";
+import Button from 'react-bootstrap/Button'
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 
 const App = () => {
-
   return (
     <BrowserRouter>
       <Switch>
@@ -20,21 +22,25 @@ const App = () => {
         </Route>
         <Route path="/">
           <button onClick={sendRequest}>click</button>
+          <Button onClick={sendRequest}>Test button</Button>
         </Route>
       </Switch>
     </BrowserRouter>
   );
-}
+};
 
 const sendRequest = (e) => {
   const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify()
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(),
   };
-  fetch('http://localhost:5000/getpost?username=hi&picture=aaaaa', requestOptions)
-    .then(response => response.json())
-    .then(data => console.log(data));
-}
+  fetch(
+    "http://localhost:5000/getpost?username=hi&picture=aaaaa",
+    requestOptions
+  )
+    .then((response) => response.json())
+    .then((data) => console.log(data));
+};
 
 export default App;

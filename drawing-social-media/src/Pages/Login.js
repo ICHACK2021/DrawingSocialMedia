@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import  {Button, Form }  from "react-bootstrap";
 import {Link} from "react-router-dom";
 import "./Login.css";
-
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const validateForm = (username, password) => {
   return 0 < username.length && username.length <= 20 && 0 < password.length && password.length <= 20;
@@ -47,9 +47,9 @@ const Login = () => {
         </Button>
         <Link to="/signup">
           <p/>
-        <div>
+        <Button>
             Signup
-        </div>
+        </Button>
         </Link>
       </Form>
     </div>

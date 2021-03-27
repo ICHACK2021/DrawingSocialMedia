@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 
 import CanvasDraw from "react-canvas-draw";
-import Box from '@material-ui/core/Box';
+import Box from "@material-ui/core/Box";
 import classNames from "./post.css";
 
 class Post extends Component {
@@ -12,14 +12,14 @@ class Post extends Component {
 				<div className="postBox">
 					<p>Artist: {this.props.artist}</p>
 					<CanvasDraw
-			          disabled
-			          hideGrid
-			          saveData={this.props.saveData}
-			        />
-		        </div>
-		    </Box>
+						disabled
+						hideGrid
+						saveData={this.props.saveData}
+					/>
+				</div>
+			</Box>
 		);
 	}
 }
 
-export default Post
+export default Post;

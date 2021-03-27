@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
 
 import CanvasDraw from "react-canvas-draw";
 import classNames from "./canvas.css";
@@ -11,7 +10,7 @@ const sendRequest = (saveData) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify()
   };
-  fetch('http://localhost:5000/newpost?username=${localStorage.getItem("username")}&picture=${saveData}', requestOptions)
+  fetch(`http://localhost:5000/newpost?username=${localStorage.getItem("username")}&picture=${saveData}`, requestOptions)
     .then(response => response.json())
     .then(data => console.log(data));
 }
