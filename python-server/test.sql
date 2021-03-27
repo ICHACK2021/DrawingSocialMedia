@@ -4,4 +4,4 @@
 
 
 SELECT * FROM USERS
-LIMIT 1, 1;
+LIMIT 2;
