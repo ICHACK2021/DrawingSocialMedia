@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "./Signup.css";
+import "./Login.css";
 import CanvasDraw from "react-canvas-draw";
 import { SketchPicker } from "react-color";
 import Box from "@material-ui/core/Box";

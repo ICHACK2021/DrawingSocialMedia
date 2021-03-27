@@ -5,6 +5,7 @@ import "./Login.css";
 import CanvasDraw from "react-canvas-draw";
 import { SketchPicker } from "react-color";
 import classNames from "./canvas.css";
+import Title from '../Components/Title';
 
 const validateForm = (username, password) => {
   return 0 < username.length && username.length <= 20 && 0 < password.length && password.length <= 20;
@@ -56,6 +57,7 @@ class Login extends Component {
   render() {
     return (
       <div className="Login">
+        <Title/>
         <Form>
           <Form.Group size="lg" controlId="Username">
             <Form.Label>Username</Form.Label>
@@ -99,15 +101,12 @@ class Login extends Component {
               onChange={(e) => this.setState({ confirmEmail: e.target.value })}
             />
           </Form.Group></div>}
-          <Button size="lg" onClick={() => handlingSubmit(this.state.username, this.state.password)} disabled={!validateForm(this.state.username, this.state.password)}>
-            Login
-          </Button>
           {!this.state.register &&
-          <Button size="lg" onClick={() => this.setState({ register: !this.state.register })}>
+          <Button className="float-left bg-secondary" size="lg" onClick={() => this.setState({ register: !this.state.register })}>
             Sign Up
           </Button>}
           {this.state.register &&
-          <Button
+          <Button className="float-left"
             size="lg"
             onClick={() =>
               handlingSubmit(
@@ -130,6 +129,9 @@ class Login extends Component {
           >
             Register
           </Button>}
+          <Button className="float-right bg-success" size="lg" onClick={() => handlingSubmit(this.state.username, this.state.password)} disabled={!validateForm(this.state.username, this.state.password)}>
+            Login
+          </Button>
         </Form>
       </div>
     );
