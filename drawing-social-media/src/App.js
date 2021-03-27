@@ -1,11 +1,20 @@
 import './App.css';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Login from './Pages/Login'
 
 const App = () => {
+
   return (
-    <div className="App">
-      <Login> </Login>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/register">
+          <Login />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 

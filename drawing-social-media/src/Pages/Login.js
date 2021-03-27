@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import  {Button, Form }  from "react-bootstrap";
+import { Link} from "react-router-dom";
 import "./Login.css";
 
 
@@ -45,9 +46,12 @@ const Login = () => {
         <Button size="lg" onClick={() => handlingSubmit(username, password)} disabled={!validateForm(username, password)}>
           Login
         </Button>
-        <Button size="lg" disabled={!validateForm(username, password)}>
-          Register
-        </Button>
+        <Link to="/register">
+          <p/>
+        <div>
+            Register
+        </div>
+        </Link>
       </Form>
     </div>
   );
