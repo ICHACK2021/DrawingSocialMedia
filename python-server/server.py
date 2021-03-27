@@ -56,7 +56,8 @@ def run():
             elif(foundEmail):
                 status = 11
             else:
-                return jsonify("good")
+                db_handler.add_new_user(
+                    args['username'], args['password'], args['email'], args['picture'])
         return jsonify({"status": status, "message": STATUS[status]})
 
     @app.route('/newpost', methods=['POST'])

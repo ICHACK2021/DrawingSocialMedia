@@ -15,7 +15,7 @@ class DBHandler:
 
         out = self.execute(
             """
-            SELECT ID FROM USERS
+            SELECT USERNAME FROM USERS
             WHERE USERNAME="%s"
             AND PASSWORD="%s";
             """
@@ -27,7 +27,7 @@ class DBHandler:
     def username_exists(self, username):
         out = self.execute(
             """
-            SELECT ID FROM USERS
+            SELECT USERNAME FROM USERS
             WHERE USERNAME="%s";
             """
             % (username)
@@ -37,11 +37,12 @@ class DBHandler:
     def email_exists(self, email):
         out = self.execute(
             """
-            SELECT ID FROM USERS
+            SELECT USERNAME FROM USERS
             WHERE EMAIL="%s";
             """
             % (email)
         )
+        print(out)
         return not out == []
 
     def add_new_user(self, username, password, email, picture):
@@ -50,7 +51,7 @@ class DBHandler:
             INSERT INTO USERS (EMAIL, USERNAME, PASSWORD, PFP)
             VALUES ("%s", "%s", "%s", "%s");
             """
-            % (email, username, password, profile_picture)
+            % (email, username, password, picture)
         )
         return
 

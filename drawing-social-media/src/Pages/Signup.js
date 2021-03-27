@@ -12,9 +12,8 @@ const validateForm = (username, email, password) => {
 }
 
 const handlingSubmit = (username, email, password, picture) => {
-    // Need to change functionality of this!
-  console.trace();
-  fetch(`http://localhost:5000/login?username=${username}&password=${password}&picture=${picture}`, 
+  // Need to change functionality of this!
+  fetch(`http://localhost:5000/register?username=${username}&email=${email}&password=${password}&picture=${JSON.stringify(picture)}`, 
   {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

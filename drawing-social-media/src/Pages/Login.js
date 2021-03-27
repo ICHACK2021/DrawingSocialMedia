@@ -9,7 +9,6 @@ const validateForm = (username, password) => {
 }
 
 const handlingSubmit = (username, password) => {
-  console.trace();
   fetch(`http://localhost:5000/login?username=${username}&password=${password}`, 
   {
     method: 'POST',
