@@ -8,14 +8,14 @@ const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/">
-          <button onClick={sendRequest}>click</button>
-        </Route>
         <Route path="/login">
           <Login />
         </Route>
         <Route path="/signup">
           <Signup />
+        </Route>
+        <Route path="/">
+          <button onClick={sendRequest}>click</button>
         </Route>
       </Switch>
     </BrowserRouter>
