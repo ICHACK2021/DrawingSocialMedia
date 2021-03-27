@@ -5,6 +5,18 @@ import CanvasDraw from "react-canvas-draw";
 import classNames from "./canvas.css";
 import { SketchPicker } from 'react-color';
 
+const sendRequest = (saveData) => {
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify()
+  };
+  fetch('http://localhost:5000/add_new_post?username=${localStorage.getItem("username")}&saveData=${saveData}', requestOptions)
+    .then(response => response.json())
+    .then(data => console.log(data));
+}
+
+
 class Canvas extends Component {
     state = {
         color: "#ffc600",
@@ -24,13 +36,10 @@ class Canvas extends Component {
             <div className={classNames.tools}>
           <button
             onClick={() => {
-              localStorage.setItem(
-                "savedDrawing",
-                this.saveableCanvas.getSaveData()
-              );
+              sendRequest(this.saveableCanvas.getSaveData());
             }}
           >
-            Save
+            Send Post
           </button>
           <button
             onClick={() => {
