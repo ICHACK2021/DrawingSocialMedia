@@ -9,9 +9,6 @@ const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/">
-          <Login />
-        </Route>
         <Route path="/canvas">
           <Canvas />
         </Route>

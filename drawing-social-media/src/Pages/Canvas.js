@@ -21,9 +21,9 @@ const sendRequest = (saveData) => {
 class Canvas extends Component {
     state = {
         color: "#ffc600",
-        width: 256,
-        height: 256,
-        brushRadius: 2,
+        width: 512,
+        height: 512,
+        brushRadius: 4,
         lazyRadius: 0
     };
 
