@@ -46,10 +46,10 @@ const Login = () => {
         <Button size="lg" onClick={() => handlingSubmit(username, password)} disabled={!validateForm(username, password)}>
           Login
         </Button>
-        <Link to="/register">
+        <Link to="/signup">
           <p/>
         <div>
-            Register
+            Signup
         </div>
         </Link>
       </Form>
