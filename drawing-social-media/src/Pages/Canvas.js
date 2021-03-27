@@ -4,6 +4,7 @@ import CanvasDraw from "react-canvas-draw";
 import classNames from "./canvas.css";
 import { SketchPicker } from 'react-color';
 import { Button } from "react-bootstrap";
+import Box from "@material-ui/core/Box";
 
 const sendRequest = (saveData) => {
   const requestOptions = {
@@ -20,9 +21,9 @@ const sendRequest = (saveData) => {
 class Canvas extends Component {
     state = {
         color: "#ffc600",
-        width: 400,
-        height: 400,
-        brushRadius: 10,
+        width: 256,
+        height: 256,
+        brushRadius: 2,
         lazyRadius: 0
     };
 

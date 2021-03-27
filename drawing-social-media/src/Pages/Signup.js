@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "./Signup.css";
 import CanvasDraw from "react-canvas-draw";
 import { SketchPicker } from "react-color";
+import Box from "@material-ui/core/Box";
 import classNames from "./canvas.css";
 import Title from '../Components/Title';
 
@@ -40,9 +41,9 @@ class Signup extends Component {
     email: "",
     password: "",
     color: "#ffc600",
-    width: 400,
-    height: 400,
-    brushRadius: 10,
+    width: 128,
+    height: 128,
+    brushRadius: 2,
     lazyRadius: 0,
     picture: "",
   };
@@ -53,7 +54,7 @@ class Signup extends Component {
 
   render() {
     return (
-      <div className="Login">
+      <div className="Signup">
         <Title/>
         <Form>
           <Form.Group size="lg" controlId="Username">
