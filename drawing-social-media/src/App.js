@@ -2,6 +2,8 @@ import './App.css';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Login from './Pages/Login'
 import Signup from './Pages/Signup';
+import Button from 'react-bootstrap/Button'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const App = () => {
 
@@ -16,6 +18,7 @@ const App = () => {
         </Route>
         <Route path="/">
           <button onClick={sendRequest}>click</button>
+          <Button onClick={sendRequest}>Test button</Button>
         </Route>
       </Switch>
     </BrowserRouter>
