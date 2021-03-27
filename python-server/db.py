@@ -43,3 +43,7 @@ class DBHandler:
             % (email)
         )
         return not out == []
+
+    def add_new_user(self, username, password, email, picture):
+        out = self.execute()
+        return
