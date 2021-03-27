@@ -15,7 +15,7 @@ const handlingSubmit = (username, password) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify()
   }).then(response => response.json())
-    .then(data => console.log(data));
+    .then(data => console.log(data)); // data.status if 0 success else failure
 }
 
 const Login = () => {
@@ -42,8 +42,11 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Button size="lg" onClick={handlingSubmit(username, password)} disabled={!validateForm(username, password)}>
+        <Button size="lg" onClick={() => handlingSubmit(username, password)} disabled={!validateForm(username, password)}>
           Login
+        </Button>
+        <Button size="lg" disabled={!validateForm(username, password)}>
+          Register
         </Button>
       </Form>
     </div>

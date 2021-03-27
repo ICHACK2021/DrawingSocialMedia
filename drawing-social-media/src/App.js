@@ -1,11 +1,10 @@
 import './App.css';
-import Login from './Pages/Login';
+import Login from './Pages/Login'
 
 const App = () => {
   return (
     <div className="App">
-      <Login></Login>
-      <button onClick={sendRequest}> click </button>
+      <Login> </Login>
     </div>
   );
 }
@@ -14,9 +13,9 @@ const sendRequest = (e) => {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify()
+    body: JSON.stringify({ title: 'aaaa' })
   };
-  fetch('http://localhost:5000/register?username=fakeuser12&password=fakepassword1&email=asdf@emial.com&picture=a', requestOptions)
+  fetch('http://localhost:5000/', requestOptions)
     .then(response => response.json())
     .then(data => console.log(data));
 }
