@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import  {Button, Form }  from "react-bootstrap";
 import {Link} from "react-router-dom";
 import "./Signup.css";
@@ -32,6 +32,7 @@ const Signup = () => {
   const [width, setWidth] = useState(400);
   const [height, setHeight] = useState(400);
   const [brushRadius, setBrushRadius] = useState(10);
+  const canvas = useRef(null);
 
   const handleChangeComplete = (color) => {
         setColor(color);
@@ -97,7 +98,7 @@ const Signup = () => {
             <div className="rowColour">
             <div>
         <CanvasDraw
-          ref={canvasDraw => ( saveableCanvas = canvasDraw)}
+          ref={canvas}
           brushColor={color}
           brushRadius={brushRadius}
           lazyRadius={0}
