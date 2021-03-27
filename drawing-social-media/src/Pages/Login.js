@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import  {Button, Form }  from "react-bootstrap";
 import {Link} from "react-router-dom";
+import Title from '../Components/Title';
+
 import "./Login.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -15,8 +17,15 @@ const handlingSubmit = (username, password) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify()
   }).then(response => response.json())
-    .then(data => console.log(data)); // data.status if 0 success else failure
+  .then(data => {if(data.status === 0) {
+    localStorage["username"] = username;
+    window.location.href = "/canvas";
+  }
+  else {
+    alert(data["message"])
+  }});
 }
+
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -24,6 +33,7 @@ const Login = () => {
 
   return (
     <div className="Login">
+      <Title/>
       <Form>
         <Form.Group size="lg" controlId="Username">
           <Form.Label>Username</Form.Label>

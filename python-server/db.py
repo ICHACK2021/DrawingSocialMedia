@@ -42,7 +42,6 @@ class DBHandler:
             """
             % (email)
         )
-        print(out)
         return not out == []
 
     def add_new_user(self, username, password, email, picture):
