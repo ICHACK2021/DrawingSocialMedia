@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import CanvasDraw from "react-canvas-draw";
 import classNames from "./canvas.css";
 import { SketchPicker } from 'react-color';
+import { Button } from "react-bootstrap";
 
 const sendRequest = (saveData) => {
   const requestOptions = {
@@ -33,27 +34,27 @@ class Canvas extends Component {
         return (
             <div>
             <div className={classNames.tools}>
-          <button
+          <Button
             onClick={() => {
               sendRequest(this.saveableCanvas.getSaveData());
             }}
           >
             Send Post
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => {
               this.saveableCanvas.clear();
             }}
           >
             Clear
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => {
               this.saveableCanvas.undo();
             }}
           >
             Undo
-          </button>
+          </Button>
           <div>
             <label>Brush-Radius:</label>
             <input
@@ -67,6 +68,7 @@ class Canvas extends Component {
         </div>
             <div className="rowColour">
             <div>
+        <Box border={1}>
         <CanvasDraw
           ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
           brushColor={this.state.color}
@@ -75,6 +77,7 @@ class Canvas extends Component {
           canvasWidth={this.state.width}
           canvasHeight={this.state.height}
         />
+        </Box>
         </div>
         <SketchPicker
             color={ this.state.color }

@@ -24,13 +24,19 @@ const validateRegister = (username, email, confirmEmail, password, confirmPasswo
 };
 
 const handlingSubmit = (username, password) => {
-  fetch(`http://localhost:5000/login?username=${username}&password=${password}`, 
+  fetch(`http://localhost:5000/login?username=${username}&password=${password}`,
   {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify()
   }).then(response => response.json())
-    .then(data => console.log(data)); // data.status if 0 success else failure
+  .then(data => {if(data.status === 0) {
+    localStorage["username"] = username;
+    window.location.href = "/canvas";
+  }
+  else {
+    alert(data["message"])
+  }});
 }
 
 class Login extends Component {

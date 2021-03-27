@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Signup.css";
 import CanvasDraw from "react-canvas-draw";
 import { SketchPicker } from "react-color";
 import classNames from "./canvas.css";
+import Title from '../Components/Title';
 
 const validateForm = (username, email, password) => {
   let validRegex = new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g);
@@ -24,12 +25,13 @@ const handlingSubmit = (username, email, password, picture) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify()
   }).then(response => response.json())
-    .then(data => data.status === 0 ? localStorage[0] = username : failure()); // data.status if 0 success else failure
-}
-
-const failure = () => {
-  alert("Username invalid, try another one");
-  Redirect(Signup);
+  .then(data => {if(data.status === 0) {
+    localStorage["username"] = username;
+    window.location.href = "/canvas";
+  }
+  else {
+    alert(data["message"])
+  }});
 }
 
 class Signup extends Component {
@@ -52,6 +54,7 @@ class Signup extends Component {
   render() {
     return (
       <div className="Login">
+        <Title/>
         <Form>
           <Form.Group size="lg" controlId="Username">
             <Form.Label>Username</Form.Label>
@@ -135,6 +138,7 @@ class Signup extends Component {
           </div>
           <div className="rowColour">
             <div>
+            <Box border={1}>
               <CanvasDraw
                 ref={(canvasDraw) => (this.saveableCanvas = canvasDraw)}
                 brushColor={this.state.color}
@@ -146,6 +150,7 @@ class Signup extends Component {
                   this.setState({ picture: this.saveableCanvas.getSaveData() })
                 }
               />
+              </Box>
             </div>
             <SketchPicker
               color={this.state.color}
