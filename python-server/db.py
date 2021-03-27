@@ -129,11 +129,33 @@ class DBHandler:
         )
         return
 
-    # def get_dms_between(user1, user2):
-    #     self.execute(
-    #         """
-    #         SELECT SENDER, IMG
-    #         FROM DMS
-    #         WHERE USER1 =
-    #         """
-    #     )
+    def get_dms_between(self, user1, user2):
+        self.execute(
+            """
+            SELECT * FROM DMS
+            WHERE (SENDER = "%s" AND SENDER = "%s")
+                OR (SENDER = "%s" AND SENDER = "%s")
+            ORDER BY ID ASC;
+            """ % (user1, user2, user2, user1)
+        )
+        return
+
+    def get_priv_feed(self, user, count, f=-1):
+
+        if (f < 0):
+            f = count
+
+        self.execute(
+            """
+            SELECT * FROM POSTS
+            WHERE USERNAME IN 
+                    SELECT USER1 FROM FRIENDS
+                    WHERE STATUS = 1 AND USER2 = "%s"
+                    UNION
+                    SELECT USER2 FROM FRIENDS
+                    WHERE STATUS = 1 AND USER1 = "%s"
+            ORDER BY ID DESC
+            LIMIT %d, %d;
+            """ % (user, user, f, count)
+        )
+        return
