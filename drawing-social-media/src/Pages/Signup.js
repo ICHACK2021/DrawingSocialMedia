@@ -105,20 +105,20 @@ class Signup extends Component {
         </Form>
         <div>
           <div className={classNames.tools}>
-            <button
+            <Button
               onClick={() => {
                 this.saveableCanvas.clear();
               }}
             >
               Clear
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => {
                 this.saveableCanvas.undo();
               }}
             >
               Undo
-            </button>
+            </Button>
             <div>
               <label>Brush-Radius:</label>
               <input
