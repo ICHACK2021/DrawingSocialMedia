@@ -11,10 +11,10 @@ const validateForm = (username, email, password) => {
   return 0 < username.length && username.length <= 20 && 0 < password.length && password.length <= 20 && validRegex.test(email);
 }
 
-const handlingSubmit = (username, email, password) => {
+const handlingSubmit = (username, email, password, picture) => {
     // Need to change functionality of this!
   console.trace();
-  fetch(`http://localhost:5000/login?username=${username}&password=${password}`, 
+  fetch(`http://localhost:5000/login?username=${username}&password=${password}&picture=${picture}`, 
   {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -34,6 +34,7 @@ class Signup extends Component {
     height: 400,
     brushRadius: 10,
     lazyRadius: 0,
+    picture: "",
   }
 
   handleChangeComplete = (color) => {
@@ -72,7 +73,7 @@ class Signup extends Component {
             onChange={(e) => this.setState({ password: e.target.value})}
           />
         </Form.Group>
-        <Button size="lg" onClick={() => handlingSubmit(this.state.username, this.state.email, this.state.password)} disabled={!validateForm(this.state.username, this.state.email, this.state.password)}>
+        <Button size="lg" onClick={() => handlingSubmit(this.state.username, this.state.email, this.state.password, this.state.picture)} disabled={!validateForm(this.state.username, this.state.email, this.state.password, this.state.picture)}>
           Signup
         </Button>
         <Link to="/login">
@@ -118,6 +119,7 @@ class Signup extends Component {
           lazyRadius={this.state.lazyRadius}
           canvasWidth={this.state.width}
           canvasHeight={this.state.height}
+          onChange={() => this.setState({picture: this.saveableCanvas.getSaveData()})}
         />
         </div>
         <SketchPicker
