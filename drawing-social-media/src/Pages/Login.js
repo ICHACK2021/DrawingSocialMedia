@@ -7,6 +7,7 @@ const validateForm = (username, password) => {
   return 0 < username.length && username.length <= 20 && 0 < password.length && password.length <= 20;
 }
 
+<<<<<<< Updated upstream
 const handlingSubmit = (username, password) => {
   console.trace();
   fetch(`http://localhost:5000/login?username=${username}&password=${password}`, 
@@ -17,6 +18,18 @@ const handlingSubmit = (username, password) => {
   }).then(response => response.json())
     .then(data => console.log(data));
 }
+=======
+  const handlingSubmit = (username, password) => {
+      console.log("AAA")
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify()
+    };
+    fetch(`http://localhost:5000/login?username=${username}&password=${password}`, requestOptions)
+      .then(response => response.json())
+      .then(data => console.log(data));
+>>>>>>> Stashed changes
 
 const Login = () => {
   const [username, setUsername] = useState("");
