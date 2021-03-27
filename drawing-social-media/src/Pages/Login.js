@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
-import "./Signup.css";
+import "./Login.css";
 import CanvasDraw from "react-canvas-draw";
 import { SketchPicker } from "react-color";
 import classNames from "./canvas.css";
@@ -70,7 +70,7 @@ class Login extends Component {
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
-              value={this.state.username}
+              value={this.state.password}
               onChange={(e) => this.setState({ password: e.target.value })}
             />
           </Form.Group>
