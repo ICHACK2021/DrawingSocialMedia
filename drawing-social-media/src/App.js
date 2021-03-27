@@ -1,8 +1,10 @@
 import './App.css';
+import Login from './Pages/Login';
 
 const App = () => {
   return (
     <div className="App">
+      <Login></Login>
       <button onClick={sendRequest}> click </button>
     </div>
   );

@@ -1,24 +1,25 @@
 import React, { useState } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import  { Button, Form }  from "react-bootstrap";
 import "./Login.css";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  function validateForm() {
+  const validateForm = () => {
     return 0 < username.length && username.length <= 20 && 0 < password.length && password.length <= 20;
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    event.userName;
-  }
+  const handlingSubmit = (username, password) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify()
+    };
+    fetch(`http://localhost:5000/login?username=${username}&password=${password}`, requestOptions)
+      .then(response => response.json())
+      .then(data => console.log(data));
 
-
-  function handlingSubmit(userName, password) {
-      
   }
   
 
