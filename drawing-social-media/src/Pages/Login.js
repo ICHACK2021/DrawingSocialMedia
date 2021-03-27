@@ -45,6 +45,9 @@ const Login = () => {
         <Button size="lg" onClick={() => handlingSubmit(username, password)} disabled={!validateForm(username, password)}>
           Login
         </Button>
+        <Button size="lg" disabled={!validateForm(username, password)}>
+          Register
+        </Button>
       </Form>
     </div>
   );
