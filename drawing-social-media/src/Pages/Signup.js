@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "./Signup.css";
 import CanvasDraw from "react-canvas-draw";
 import { SketchPicker } from "react-color";
@@ -18,16 +18,19 @@ const validateForm = (username, email, password) => {
 };
 
 const handlingSubmit = (username, email, password, picture) => {
-  // Need to change functionality of this!
   fetch(`http://localhost:5000/register?username=${username}&email=${email}&password=${password}&picture=${JSON.stringify(picture)}`, 
   {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify()
   }).then(response => response.json())
-    .then(data => console.log(data)); // data.status if 0 success else failure
+    .then(data => data.status === 0 ? localStorage[0] = username : failure()); // data.status if 0 success else failure
 }
 
+const failure = () => {
+  alert("Username invalid, try another one");
+  Redirect(Signup);
+}
 
 class Signup extends Component {
   state = {
