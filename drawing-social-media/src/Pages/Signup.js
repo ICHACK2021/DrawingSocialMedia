@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, Component } from "react";
 import  {Button, Form }  from "react-bootstrap";
 import {Link} from "react-router-dom";
 import "./Signup.css";
@@ -24,20 +24,23 @@ const handlingSubmit = (username, email, password) => {
 }
 
 
-const Signup = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("");
-  const [color, setColor] = useState("#ffc600");
-  const [width, setWidth] = useState(400);
-  const [height, setHeight] = useState(400);
-  const [brushRadius, setBrushRadius] = useState(10);
-  const canvas = useRef(null);
+class Signup extends Component {
+  state = {
+    username: "",
+    email: "",
+    password: "",
+    color: "#ffc600",
+    width: 400,
+    height: 400,
+    brushRadius: 10,
+    lazyRadius: 0,
+  }
 
-  const handleChangeComplete = (color) => {
-        setColor(color);
+  handleChangeComplete = (color) => {
+      this.setState({ color: color.hex });
   };
 
+  render() {
   return (
     <div className="Login">
       <Form>
@@ -47,8 +50,8 @@ const Signup = () => {
           <Form.Control
             autoFocus
             type="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={this.state.username}
+            onChange={(e) => this.setState({ username: e.target.value})}
           />
         </Form.Group>
 
@@ -56,16 +59,17 @@ const Signup = () => {
           <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={this.state.email}
+            onChange={(e) => this.setState({ email: e.target.value})}
           />
         </Form.Group>
+
         <Form.Group size="lg" controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={this.state.password}
+            onChange={(e) => this.setState({ password: e.target.value})}
           />
         </Form.Group>
         <div>
@@ -88,9 +92,9 @@ const Signup = () => {
             <label>Brush-Radius:</label>
             <input
               type="number"
-              value={brushRadius}
+              value={this.state.brushRadius}
               onChange={e =>
-                setBrushRadius(parseInt(e.target.value, 10))
+                this.setState({ brushRadius: parseInt(e.target.value, 10) })
               }
             />
           </div>
@@ -98,21 +102,21 @@ const Signup = () => {
             <div className="rowColour">
             <div>
         <CanvasDraw
-          ref={canvas}
-          brushColor={color}
-          brushRadius={brushRadius}
-          lazyRadius={0}
-          canvasWidth={width}
-          canvasHeight={height}
+          ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
+          brushColor={this.state.color}
+          brushRadius={this.state.brushRadius}
+          lazyRadius={this.state.lazyRadius}
+          canvasWidth={this.state.width}
+          canvasHeight={this.state.height}
         />
         </div>
         <SketchPicker
-            color={ color }
-            onChangeComplete={ handleChangeComplete }
+            color={ this.state.color }
+            onChangeComplete={ this.handleChangeComplete }
           />
         </div>
         </div>
-        <Button size="lg" onClick={() => handlingSubmit(username, email, password)} disabled={!validateForm(username, email, password)}>
+        <Button size="lg" onClick={() => handlingSubmit(this.state.username, this.state.email, this.state.password)} disabled={!validateForm(this.state.username, this.state.email, this.state.password)}>
           Signup
         </Button>
         <Link to="/login">
@@ -125,5 +129,7 @@ const Signup = () => {
     </div>
   );
 }
+}
+
 
 export default Signup;
