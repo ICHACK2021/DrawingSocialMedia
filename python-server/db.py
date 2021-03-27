@@ -15,9 +15,9 @@ class DBHandler:
 
         out = self.execute(
             """
-            SELECT ID FROM USERS 
-            WHERE USERNAME="%s" 
-            AND PASSWORD="%s"
+            SELECT ID FROM USERS
+            WHERE USERNAME="%s"
+            AND PASSWORD="%s";
             """
             % (username, password)
         )
@@ -25,10 +25,21 @@ class DBHandler:
         return not out == []
 
     def username_exists(self, username):
-        return False
+        out = self.execute(
+            """
+            SELECT ID FROM USERS
+            WHERE USERNAME="%s";
+            """
+            % (username)
+        )
+        return not out == []
 
     def email_exists(self, email):
-        return False
-
-    def close_databse(self):
-        self.con.close()
+        out = self.execute(
+            """
+            SELECT ID FROM USERS
+            WHERE EMAIL="%s";
+            """
+            % (email)
+        )
+        return not out == []

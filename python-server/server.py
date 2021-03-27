@@ -48,9 +48,14 @@ def run():
         elif 'picture' not in args:
             status = 4
         else:
-            found = db_handler.verify_user(args["username"], args["password"])
-            if(not found):
-                status = 3
+            foundUsername = db_handler.username_exists(args["username"])
+            foundEmail = db_handler.email_exists(args["email"])
+            if(foundUsername):
+                status = 10
+            elif(foundEmail):
+                status = 11
+            else:
+                return jsonify("good")
         return jsonify({"status": status, "message": STATUS[status]})
 
     app.run()
