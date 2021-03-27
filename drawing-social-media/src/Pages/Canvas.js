@@ -68,6 +68,7 @@ class Canvas extends Component {
         </div>
             <div className="rowColour">
             <div>
+        <Box border={1}>
         <CanvasDraw
           ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
           brushColor={this.state.color}
@@ -76,6 +77,7 @@ class Canvas extends Component {
           canvasWidth={this.state.width}
           canvasHeight={this.state.height}
         />
+        </Box>
         </div>
         <SketchPicker
             color={ this.state.color }

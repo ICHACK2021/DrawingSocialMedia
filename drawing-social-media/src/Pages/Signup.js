@@ -138,6 +138,7 @@ class Signup extends Component {
           </div>
           <div className="rowColour">
             <div>
+            <Box border={1}>
               <CanvasDraw
                 ref={(canvasDraw) => (this.saveableCanvas = canvasDraw)}
                 brushColor={this.state.color}
@@ -149,6 +150,7 @@ class Signup extends Component {
                   this.setState({ picture: this.saveableCanvas.getSaveData() })
                 }
               />
+              </Box>
             </div>
             <SketchPicker
               color={this.state.color}
