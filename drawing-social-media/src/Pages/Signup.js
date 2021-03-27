@@ -72,7 +72,17 @@ class Signup extends Component {
             onChange={(e) => this.setState({ password: e.target.value})}
           />
         </Form.Group>
+        <Button size="lg" onClick={() => handlingSubmit(this.state.username, this.state.email, this.state.password)} disabled={!validateForm(this.state.username, this.state.email, this.state.password)}>
+          Signup
+        </Button>
+        <Link to="/login">
+          <p/>
         <div>
+            Login
+        </div>
+        </Link>
+      </Form>
+      <div>
             <div className={classNames.tools}>
           <button
             onClick={() => {
@@ -116,16 +126,6 @@ class Signup extends Component {
           />
         </div>
         </div>
-        <Button size="lg" onClick={() => handlingSubmit(this.state.username, this.state.email, this.state.password)} disabled={!validateForm(this.state.username, this.state.email, this.state.password)}>
-          Signup
-        </Button>
-        <Link to="/login">
-          <p/>
-        <div>
-            Login
-        </div>
-        </Link>
-      </Form>
     </div>
   );
 }

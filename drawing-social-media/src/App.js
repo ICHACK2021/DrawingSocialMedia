@@ -2,6 +2,7 @@ import './App.css';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Login from './Pages/Login'
 import Signup from './Pages/Signup';
+import Canvas from './Pages/Canvas'
 
 const App = () => {
 
@@ -10,6 +11,9 @@ const App = () => {
       <Switch>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/canvas">
+          <Canvas />
         </Route>
         <Route path="/signup">
           <Signup />
