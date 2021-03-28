@@ -19,6 +19,20 @@ const getPosts = async () => {
 	return data.posts;
 };
 
+const getPrivatePosts = async (username) => {
+	const response = await fetch(`http://localhost:5000/getprivatepost?username=${username}`,
+		{
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify()
+		});
+
+	const data = await response.json();
+	//For post in feed, add <Post saveData=getSaveData/> to elements
+	// console.log(elements)
+	return data.posts;
+};
+
 const _onSelect = (option, setter) => {
 	setter(option.target.value === "Private Feed");
 };
@@ -45,7 +59,9 @@ const Feed = () => {
 				</select>
 				<button className="btn bg-info text-white"
 					onClick={async () => {
-						setPosts(await getPosts());
+						if(!isPrivate) { setPosts(await getPosts()); }
+						else { setPosts(await getPrivatePosts(localStorage.getItem("username"))); }
+						
 					}}
 				>
 					Refresh

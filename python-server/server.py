@@ -70,10 +70,35 @@ def run():
 
         return jsonify({"status": status, "message": STATUS[status]})
 
+    @app.route('/privatemessage', methods=['POST'])
+    def post():
+        args = request.args
+        status = 0
+        if 'username' not in args:
+            status = 1
+        elif 'to' not in args:
+            status = 2
+        else:
+            db_handler.add_new_private_post(
+                args["username"], args["to"], request.data.decode("utf-8"), time.strftime('%d/%m/%Y'))
+
+        return jsonify({"status": status, "message": STATUS[status]})
+
     @app.route('/getpost', methods=['POST'])
     def get():
         status = 0
         posts = list(map(post_to_json, db_handler.get_posts()))
+        return {"status": status, "message": STATUS[status], "posts": posts}
+
+    @app.route('/getprivatepost', methods=['POST'])
+    def get():
+        posts = []
+        args = request.args
+        status = 0
+        if 'username' not in args:
+            status = 1
+        else:    
+            posts = list(map(post_to_json, db_handler.get_private_posts(args["username"])))
         return {"status": status, "message": STATUS[status], "posts": posts}
 
     app.run()

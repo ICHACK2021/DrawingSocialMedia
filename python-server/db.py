@@ -105,6 +105,15 @@ class DBHandler:
         )
         return
 
+    def add_new__private_post(self, username, sendTo, image, date):
+        self.execute(
+            """
+            INSERT INTO PRIVATEPOSTS (USERNAME, TO, IMAGE, DATE)
+            VALUES("%s", '%s', "%s")
+            """ % (username, sendTo, image, date)
+        )
+        return
+
     def get_posts(self, count=100):
         count = len(self.execute("SELECT * from POSTS;"))
 
@@ -115,6 +124,18 @@ class DBHandler:
                 ORDER BY id DESC
                 LIMIT %d
             """ % count
+        )
+
+    def get_private_posts(self, username, count=100):
+        count = len(self.execute("SELECT * from POSTS;"))
+
+        return self.execute(
+            """
+                SELECT t1.*, t2.PFP from PRIVATEPOSTS as t1 WHERE t1.TO = "%s"
+                NATURAL JOIN USERS as t2
+                ORDER BY id DESC
+                LIMIT %d
+            """ % (username, count)
         )
 
     def add_new_dm(self, sender, reciever, img):
