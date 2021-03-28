@@ -61,7 +61,6 @@ const Feed = () => {
 					onClick={async () => {
 						if(!isPrivate) { setPosts(await getPosts()); }
 						else { setPosts(await getPrivatePosts(localStorage.getItem("username"))); }
-						
 					}}
 				>
 					Refresh

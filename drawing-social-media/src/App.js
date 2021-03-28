@@ -3,7 +3,6 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Login from "./Pages/Login";
 import Canvas from "./Pages/Canvas";
 import Feed from "./Pages/Feed";
-import PrivateFeed from "./Pages/PrivateFeed";
 import Privatepost from "./Pages/privatemessage"
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -20,9 +19,6 @@ const App = () => {
         </Route>
         <Route path="/feed">
           <Feed />
-        </Route>
-        <Route path="/privatefeed">
-          <PrivateFeed />
         </Route>
         <Route path="/">
           <Login />
