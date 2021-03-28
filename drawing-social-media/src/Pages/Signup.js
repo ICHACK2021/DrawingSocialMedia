@@ -99,7 +99,6 @@ class Signup extends Component {
                 this.state.username,
                 this.state.email,
                 this.state.password,
-                this.state.picture
               )
             }
           >
