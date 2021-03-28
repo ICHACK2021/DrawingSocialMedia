@@ -48,7 +48,7 @@ class DBHandler:
         out = self.execute(
             """
             INSERT INTO USERS (EMAIL, USERNAME, PASSWORD, PFP)
-            VALUES ("%s", "%s", "%s", %s);
+            VALUES ("%s", "%s", "%s", '%s');
             """
             % (email, username, password, picture)
         )
@@ -110,9 +110,10 @@ class DBHandler:
 
         return self.execute(
             """
-                SELECT * from POSTS
+                SELECT t1.*, t2.PFP from POSTS as t1
+                NATURAL JOIN USERS as t2
                 ORDER BY id DESC
-                LIMIT %d;
+                LIMIT %d
             """ % count
         )
 

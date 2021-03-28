@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import "react-dropdown/style.css";
 import Post from "./Post"
-import Title from "../Components/Title";
+import NavBar from "../Components/NavBar";
 import "./Feed.css";
 
 
@@ -32,9 +32,9 @@ const Feed = () => {
 		, []);
 	return (
 		<div className="bg-light">
-			<Title />
-			<div className="d-flex justify-content-center">
-				<select className="form-select form-select-lg"
+			<NavBar />
+			<div className="d-flex justify-content-center mt-4">
+				<select className="form-select form-select-lg mr-2"
 					value={
 						isPrivate ? "Private Feed" : "Public Feed"
 					}
@@ -51,7 +51,7 @@ const Feed = () => {
 					Refresh
 			</button>
 			</div>
-			{posts.map(post => <Post key={post.id} date={post.date} artist={post.username} picture={JSON.parse(post.picture)} />)}
+			{posts.map(post => <Post key={post.id} date={post.date} artist={post.username} pfp={JSON.parse(post.pfp)} picture={JSON.parse(post.picture)} />)}
 		</div>
 	);
 }

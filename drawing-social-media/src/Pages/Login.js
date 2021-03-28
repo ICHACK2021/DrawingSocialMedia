@@ -21,7 +21,6 @@ const validateForm = (username, password) => {
 const validateRegister = (
   username,
   email,
-  confirmEmail,
   password,
   confirmPassword
 ) => {
@@ -32,7 +31,6 @@ const validateRegister = (
     0 < password.length &&
     password.length <= 20 &&
     validRegex.test(email) &&
-    email === confirmEmail &&
     password === confirmPassword
   );
 };
@@ -50,12 +48,30 @@ const handlingSubmit = (username, password) => {
     .then((data) => {
       if (data.status === 0) {
         localStorage["username"] = username;
-        window.location.href = "/canvas";
+        window.location.href = "/feed";
       } else {
         alert(data["message"]);
       }
     });
 };
+
+const handlingRegister = (username, email, password, picture) => {
+  fetch(`http://localhost:5000/register?username=${username}&email=${email}&password=${password}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(picture)
+    }).then(response => response.json(picture))
+    .then(data => {
+      if (data.status === 0) {
+        localStorage["username"] = username;
+        window.location.href = "/feed";
+      }
+      else {
+        alert(data["message"])
+      }
+    });
+}
 
 class Login extends Component {
   state = {
@@ -63,7 +79,6 @@ class Login extends Component {
     password: "",
     passwordConfirm: "",
     email: "",
-    emailConfirm: "",
     register: false,
     color: "#ffc600",
     width: 128,
@@ -81,7 +96,7 @@ class Login extends Component {
     return (
       <div>
         <div>
-          <Title />
+          <Title smallSize={"display-3"} bigSize={"display-1"} pt={4} />
         </div>
         <div className="Login">
           <Form>
@@ -94,6 +109,16 @@ class Login extends Component {
                 onChange={(e) => this.setState({ username: e.target.value })}
               />
             </Form.Group>
+            {this.state.register && (
+              <Form.Group size="lg" controlId="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  value={this.state.email}
+                  onChange={(e) => this.setState({ email: e.target.value })}
+                />
+              </Form.Group>
+            )}
             <Form.Group size="lg" controlId="password">
               <Form.Label>Password</Form.Label>
               <Form.Control
@@ -114,24 +139,7 @@ class Login extends Component {
                     }
                   />
                 </Form.Group>
-                <Form.Group size="lg" controlId="email">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    value={this.state.email}
-                    onChange={(e) => this.setState({ email: e.target.value })}
-                  />
-                </Form.Group>
-                <Form.Group size="lg" controlId="emailConfirm">
-                  <Form.Label>Confirm Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    value={this.state.confirmEmail}
-                    onChange={(e) =>
-                      this.setState({ confirmEmail: e.target.value })
-                    }
-                  />
-                </Form.Group>
+
               </div>
             )}
             {!this.state.register && (
@@ -150,19 +158,17 @@ class Login extends Component {
                 className="float-left"
                 size="lg"
                 onClick={() =>
-                  handlingSubmit(
+                  handlingRegister(
                     this.state.username,
                     this.state.email,
-                    this.state.emailConfirm,
                     this.state.password,
-                    this.state.passwordConfirm
+                    this.saveableCanvas.getSaveData()
                   )
                 }
                 disabled={
-                  !validateForm(
+                  !validateRegister(
                     this.state.username,
                     this.state.email,
-                    this.state.emailConfirm,
                     this.state.password,
                     this.state.passwordConfirm
                   )
@@ -182,17 +188,22 @@ class Login extends Component {
               Login
             </Button>
           </Form>
-          +{" "}
+          {" "}
           {this.state.register && (
             <div>
+              <div>
+                <label>Brush-Radius:</label>
+                <input className="ml-1"
+                  type="number"
+                  value={this.state.brushRadius}
+                  onChange={(e) =>
+                    this.setState({
+                      brushRadius: parseInt(e.target.value, 10),
+                    })
+                  }
+                />
+              </div>
               <div className={classNames.tools}>
-                <Button
-                  onClick={() => {
-                    this.saveableCanvas.clear();
-                  }}
-                >
-                  Clear
-                </Button>
                 <Button
                   onClick={() => {
                     this.saveableCanvas.undo();
@@ -200,18 +211,13 @@ class Login extends Component {
                 >
                   Undo
                 </Button>
-                <div>
-                  <label>Brush-Radius:</label>
-                  <input
-                    type="number"
-                    value={this.state.brushRadius}
-                    onChange={(e) =>
-                      this.setState({
-                        brushRadius: parseInt(e.target.value, 10),
-                      })
-                    }
-                  />
-                </div>
+                <Button className="ml-3"
+                  onClick={() => {
+                    this.saveableCanvas.clear();
+                  }}
+                >
+                  Clear
+                </Button>
               </div>
               <div className="rowColour">
                 <div>
@@ -231,7 +237,7 @@ class Login extends Component {
                     />
                   </Box>
                 </div>
-                <SketchPicker
+                <SketchPicker className="ml-3"
                   color={this.state.color}
                   onChangeComplete={this.handleChangeComplete}
                 />

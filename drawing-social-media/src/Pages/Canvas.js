@@ -2,7 +2,8 @@ import React, { Component } from "react";
 
 import CanvasDraw from "react-canvas-draw";
 import classNames from "./canvas.css";
-import { SketchPicker } from 'react-color';
+import NavBar from "../Components/NavBar";
+import { AlphaPicker, SketchPicker } from 'react-color';
 import { Button } from "react-bootstrap";
 import Box from "@material-ui/core/Box";
 
@@ -14,80 +15,89 @@ const sendRequest = (saveData) => {
   };
   fetch(`http://localhost:5000/newpost?username=${localStorage.getItem("username")}`, requestOptions)
     .then(response => response.json())
-    .then(data => console.log(data));
+    .then(data => {
+      if (data["status"] === 0) {
+        alert("Sucess");
+      }
+      else {
+        alert(data["message"]);
+      }
+    });
 }
 
 
 class Canvas extends Component {
-    state = {
-        color: "#ffc600",
-        width: 512,
-        height: 512,
-        brushRadius: 4,
-        lazyRadius: 0
-    };
+  state = {
+    color: "#ffc600",
+    width: 512,
+    height: 512,
+    brushRadius: 4,
+    lazyRadius: 0
+  };
 
-    handleChangeComplete = (color) => {
-        this.setState({ color: color.hex });
-    };
+  handleChangeComplete = (color) => {
+    this.setState({ color: color.hex });
+  };
 
-    render() {
-        return (
-            <div>
-            <div className={classNames.tools}>
-          <Button
-            onClick={() => {
-              sendRequest(this.saveableCanvas.getSaveData());
-            }}
-          >
-            Send Post
-          </Button>
-          <Button
-            onClick={() => {
-              this.saveableCanvas.clear();
-            }}
-          >
-            Clear
-          </Button>
-          <Button
-            onClick={() => {
-              this.saveableCanvas.undo();
-            }}
-          >
-            Undo
-          </Button>
+  render() {
+    return (
+      <div>
+        <NavBar />
+        <div className="d-flex justify-content-center mt-4">
+          <label className="text h4 mt-3">Brush-Radius:</label>
+          <input className="ml-2 mt-2"
+            type="number"
+            value={this.state.brushRadius}
+            onChange={e =>
+              this.setState({ brushRadius: parseInt(e.target.value, 10) })
+            }
+          />
+
+        </div>
+        <div className="rowColour d-flex justify-content-center">
           <div>
-            <label>Brush-Radius:</label>
-            <input
-              type="number"
-              value={this.state.brushRadius}
-              onChange={e =>
-                this.setState({ brushRadius: parseInt(e.target.value, 10) })
-              }
-            />
+            <Box border={1}>
+              <CanvasDraw
+                ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
+                brushColor={this.state.color}
+                brushRadius={this.state.brushRadius}
+                lazyRadius={this.state.lazyRadius}
+                canvasWidth={this.state.width}
+                canvasHeight={this.state.height}
+              />
+            </Box>
+            <div className="d-flex justify-content-between">
+              <Button className="ml-4 mr-4 mt-2"
+                onClick={() => {
+                  sendRequest(this.saveableCanvas.getSaveData());
+                }}
+              >
+                Send Post
+          </Button>
+              <Button className="ml-4 mr-4 mt-2"
+                onClick={() => {
+                  this.saveableCanvas.clear();
+                }}
+              >
+                Clear
+          </Button>
+              <Button className="ml-4 mr-4 mt-2"
+                onClick={() => {
+                  this.saveableCanvas.undo();
+                }}
+              >
+                Undo
+          </Button>
+            </div>
           </div>
-        </div>
-            <div className="rowColour">
-            <div>
-        <Box border={1}>
-        <CanvasDraw
-          ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
-          brushColor={this.state.color}
-          brushRadius={this.state.brushRadius}
-          lazyRadius={this.state.lazyRadius}
-          canvasWidth={this.state.width}
-          canvasHeight={this.state.height}
-        />
-        </Box>
-        </div>
-        <SketchPicker
-            color={ this.state.color }
-            onChangeComplete={ this.handleChangeComplete }
+          <SketchPicker className="ml-4 mt-3"
+            color={this.state.color}
+            onChangeComplete={this.handleChangeComplete}
           />
         </div>
-        </div>
-        );
-    }
+      </div>
+    );
+  }
 }
 
 export default Canvas

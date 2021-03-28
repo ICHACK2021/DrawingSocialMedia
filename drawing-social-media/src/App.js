@@ -10,7 +10,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/canvas">
+        <Route path="/post">
           <Canvas />
         </Route>
         <Route path="/feed">

@@ -1,6 +1,6 @@
 
 .MuiBox-root {
-    width: 800px;
+    min-width: height;
     margin: auto;
     margin-top: 1em;
     padding: 10px;

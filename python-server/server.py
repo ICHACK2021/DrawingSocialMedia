@@ -1,7 +1,6 @@
 from flask import json
 from db import DBHandler
 import time
-import json
 import flask
 from flask import request, jsonify
 from flask_cors import CORS
@@ -67,7 +66,7 @@ def run():
             status = 1
         else:
             db_handler.add_new_post(
-                args["username"], request.data.decode("utf-8"), time.strftime('%Y-%m-%d %H:%M:%S'))
+                args["username"], request.data.decode("utf-8"), time.strftime('%d/%m/%Y'))
 
         return jsonify({"status": status, "message": STATUS[status]})
 
@@ -81,7 +80,7 @@ def run():
 
 
 def post_to_json(post):
-    return {"id": post[0], "username": post[1], "picture": post[2], "date": post[3]}
+    return {"id": post[0], "username": post[1], "picture": post[2], "date": post[3], "pfp": post[4]}
 
 
 if __name__ == '__main__':
