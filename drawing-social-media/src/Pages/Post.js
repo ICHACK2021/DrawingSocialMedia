@@ -40,7 +40,8 @@ class Post extends Component {
 								<div className="text h3 text-dark ml-2">Date: {this.props.date}</div>
 							</div>
 							<div className="col-md-6 d-flex justify-content-end">
-								<div className="mr-2 mt-2"><CanvasDraw className="drawing"
+								<div className="mr-2 mt-2">
+									<CanvasDraw className="drawing"
 									ref={canvasDraw => (this.loadableCanvas2 = canvasDraw)}
 									disabled
 									hideGrid
@@ -56,6 +57,7 @@ class Post extends Component {
 							canvasWidth={this.state.width}
 							canvasHeight={this.state.height}
 						/>
+					
 					</div>
 				</div>
 			</div>
