@@ -1,0 +1,9 @@
+.postBox {
+    margin: 0;
+    padding: 0;
+}
+
+.drawing {
+    display: block;
+    margin: 0 auto;
+}

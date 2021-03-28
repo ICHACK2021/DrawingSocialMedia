@@ -33,23 +33,25 @@ const Feed = () => {
 	return (
 		<div className="bg-light">
 			<Title />
-			<select
-				value={
-					isPrivate ? "Private Feed" : "Public Feed"
-				}
-				onChange={(e) => _onSelect(e, setPrivate)}
-			>
-				<option value="Public Feed">Public Feed</option>
-				<option value="Private Feed">Private Feed</option>
-			</select>
-			<button
-				onClick={async () => {
-					setPosts(await getPosts());
-				}}
-			>
-				Refresh
+			<div className="d-flex justify-content-center">
+				<select className="form-select form-select-lg"
+					value={
+						isPrivate ? "Private Feed" : "Public Feed"
+					}
+					onChange={(e) => _onSelect(e, setPrivate)}
+				>
+					<option value="Public Feed">Public Feed</option>
+					<option value="Private Feed">Private Feed</option>
+				</select>
+				<button className="btn bg-info text-white"
+					onClick={async () => {
+						setPosts(await getPosts());
+					}}
+				>
+					Refresh
 			</button>
-			{posts.map(post => <Post key={Math.floor(Math.random() * 10000)} artist={post.username} picture={JSON.parse(post.picture)} />)}
+			</div>
+			{posts.map(post => <Post key={post.id} date={post.date} artist={post.username} picture={JSON.parse(post.picture)} />)}
 		</div>
 	);
 }

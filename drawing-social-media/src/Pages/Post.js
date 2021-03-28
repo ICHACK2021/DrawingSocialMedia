@@ -14,10 +14,10 @@ class Post extends Component {
 	render() {
 		return (
 			<Box border={1}>
-				<div className="postBox">
+				<div className="postBox bg-white">
 					<div className="text h3 text-dark">Artist: {this.props.artist}</div>
 					<div className="text h3 text-dark">Date: {this.props.date}</div>
-					<CanvasDraw
+					<CanvasDraw className="drawing"
 						ref={canvasDraw => (this.loadableCanvas = canvasDraw)}
 						disabled
 						hideGrid
