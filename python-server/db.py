@@ -110,7 +110,7 @@ class DBHandler:
 
         return self.execute(
             """
-                SELECT USERNAME, IMAGE, DATE from POSTS
+                SELECT * from POSTS
                 ORDER BY id DESC
                 LIMIT %d;
             """ % count

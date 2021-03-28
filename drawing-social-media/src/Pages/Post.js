@@ -1,19 +1,19 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
 
 import CanvasDraw from "react-canvas-draw";
 import Box from '@material-ui/core/Box';
-import classNames from "./post.css";
 
 class Post extends Component {
 	componentDidMount(){
     	this.loadableCanvas.loadSaveData(	
-              this.props.picture
+              this.props.picture, true
             );
   	}
+
 	render() {
 		return (
 			<Box border={1}>
+				{console.log("a")}
 				<div className="postBox">
 					<p>Artist: {this.props.artist}</p>
 					<CanvasDraw

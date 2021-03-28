@@ -1,32 +1,32 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
-
-import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
+import Post from "./Post"
 
 class Feed extends Component {
-	getSaveData = (id) => {};
+	getSaveData = (id) => { };
 
-	getPosts = () => {
-		var elements = [];
-		fetch(`http://localhost:5000/getpost`,
-		{
-		  method: 'POST',
-		  headers: { 'Content-Type': 'application/json' },
-		  body: JSON.stringify()
-		}).then(response => response.json())
-		.then(data => console.log(data));
+
+	getPosts = async () => {
+		const response = await fetch(`http://localhost:5000/getpost`,
+			{
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify()
+			});
+
+		const data = await response.json();
 		//For post in feed, add <Post saveData=getSaveData/> to elements
-		return elements;
+		// console.log(elements)
+		return data.posts;
 	};
 
 	_onSelect = (option) => {
-		this.setState({ isPrivate: option.target.value == "Private Feed" });
+		this.setState({ isPrivate: option.target.value === "Private Feed" });
 	};
 
 	state = {
 		isPrivate: false,
-		posts: this.getPosts(),
+		posts: [],
 	};
 
 	render() {
@@ -42,13 +42,13 @@ class Feed extends Component {
 					<option value="Private Feed">Private Feed</option>
 				</select>
 				<button
-					onClick={() => {
-						this.setState({ posts: this.getPosts() });
+					onClick={async () => {
+						this.setState({ posts: await this.getPosts() });
 					}}
 				>
 					Refresh
 				</button>
-				{this.state.posts}
+				{this.state.posts.map(post => <Post key={Math.floor(Math.random() * 10000)} artist={post.username} picture={JSON.parse(post.picture)} />)}
 			</div>
 		);
 	}

@@ -47,8 +47,6 @@ def run():
             status = 2
         elif 'email' not in args:
             status = 3
-        elif 'picture' not in args:
-            status = 4
         else:
             foundUsername = db_handler.username_exists(args["username"])
             foundEmail = db_handler.email_exists(args["email"])
@@ -58,7 +56,7 @@ def run():
                 status = 11
             else:
                 db_handler.add_new_user(
-                    args['username'], args['password'], args['email'], args["picture"].replace("\\", ""))
+                    args['username'], args['password'], args['email'], request.data.decode("utf-8"))
         return jsonify({"status": status, "message": STATUS[status]})
 
     @app.route('/newpost', methods=['POST'])
@@ -83,7 +81,7 @@ def run():
 
 
 def post_to_json(post):
-    return {"username": post[0], "picture": post[1], "date": post[2]}
+    return {"id": post[0], "username": post[1], "picture": post[2], "date": post[3]}
 
 
 if __name__ == '__main__':
