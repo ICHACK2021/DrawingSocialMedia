@@ -41,7 +41,7 @@ class Canvas extends Component {
 
   render() {
     return (
-      <div>
+      <div className="bg-light full">
         <NavBar />
         <div className="d-flex justify-content-center mt-4">
           <label className="text h4 mt-3">Brush-Radius:</label>

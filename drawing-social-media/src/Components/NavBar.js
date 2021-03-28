@@ -7,11 +7,12 @@ const NavBar = () => {
         <Nav className="mr-auto">
             <Nav.Link href="/feed">Feed</Nav.Link>
             <Nav.Link href="/post">Post</Nav.Link>
-            <Nav.Link href="/DM">Messages</Nav.Link>
+            {/* <Nav.Link href="/DM">Messages</Nav.Link> */}
             <NavDropdown title="Profile" id="collasible-nav-dropdown">
                 <NavDropdown.Item href="/">Sign Out</NavDropdown.Item>
             </NavDropdown>
         </Nav>
+        <h5 className="text-white">{localStorage["username"]}</h5>
     </Navbar>
 }
 
