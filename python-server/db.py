@@ -105,7 +105,7 @@ class DBHandler:
         )
         return
 
-    def add_new__private_post(self, username, sendTo, image, date):
+    def add_new_private_post(self, username, sendTo, image, date):
         self.execute(
             """
             INSERT INTO PRIVATEPOSTS (USERNAME, TO, IMAGE, DATE)
@@ -131,7 +131,7 @@ class DBHandler:
 
         return self.execute(
             """
-                SELECT t1.*, t2.PFP from PRIVATEPOSTS as t1 WHERE t1.TO = "%s"
+                SELECT t1.* WHERE t1.TO = "%s", t2.PFP from PRIVATEPOSTS as t1
                 NATURAL JOIN USERS as t2
                 ORDER BY id DESC
                 LIMIT %d

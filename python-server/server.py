@@ -71,13 +71,13 @@ def run():
         return jsonify({"status": status, "message": STATUS[status]})
 
     @app.route('/privatemessage', methods=['POST'])
-    def post():
+    def privatepost():
         args = request.args
         status = 0
         if 'username' not in args:
             status = 1
         elif 'to' not in args:
-            status = 2
+            status = 1
         else:
             db_handler.add_new_private_post(
                 args["username"], args["to"], request.data.decode("utf-8"), time.strftime('%d/%m/%Y'))
@@ -91,7 +91,7 @@ def run():
         return {"status": status, "message": STATUS[status], "posts": posts}
 
     @app.route('/getprivatepost', methods=['POST'])
-    def get():
+    def privateget():
         posts = []
         args = request.args
         status = 0

@@ -17,7 +17,7 @@ const sendRequest = (saveData, sendTo) => {
     .then(response => response.json())
     .then(data => {
       if (data["status"] === 0) {
-        alert("Sucess");
+        alert("Success");
       }
       else {
         alert(data["message"]);
