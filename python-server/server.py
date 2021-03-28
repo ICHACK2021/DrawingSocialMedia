@@ -98,7 +98,7 @@ def run():
         if 'username' not in args:
             status = 1
         else:    
-            posts = list(map(post_to_json, db_handler.get_private_posts(args["username"])))
+            posts = list(map(private_post_to_json, db_handler.get_private_posts(args["username"])))
         return {"status": status, "message": STATUS[status], "posts": posts}
 
     app.run()
@@ -106,6 +106,9 @@ def run():
 
 def post_to_json(post):
     return {"id": post[0], "username": post[1], "picture": post[2], "date": post[3], "pfp": post[4]}
+
+def private_post_to_json(post):
+    return {"id": post[0], "username": post[1], "picture": post[2], "date": post[3], "pfp": post[5]}
 
 
 if __name__ == '__main__':
