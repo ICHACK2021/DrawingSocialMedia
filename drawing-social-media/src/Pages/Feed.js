@@ -1,57 +1,58 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import "react-dropdown/style.css";
 import Post from "./Post"
+import Title from "../Components/Title";
+import "./Feed.css";
 
-class Feed extends Component {
-	getSaveData = (id) => { };
+
+const getPosts = async () => {
+	const response = await fetch(`http://localhost:5000/getpost`,
+		{
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify()
+		});
+
+	const data = await response.json();
+	//For post in feed, add <Post saveData=getSaveData/> to elements
+	// console.log(elements)
+	return data.posts;
+};
+
+const _onSelect = (option, setter) => {
+	setter(option.target.value === "Private Feed");
+};
 
 
-	getPosts = async () => {
-		const response = await fetch(`http://localhost:5000/getpost`,
-			{
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify()
-			});
-
-		const data = await response.json();
-		//For post in feed, add <Post saveData=getSaveData/> to elements
-		// console.log(elements)
-		return data.posts;
-	};
-
-	_onSelect = (option) => {
-		this.setState({ isPrivate: option.target.value === "Private Feed" });
-	};
-
-	state = {
-		isPrivate: false,
-		posts: [],
-	};
-
-	render() {
-		return (
-			<div>
-				<select
-					value={
-						this.state.isPrivate ? "Private Feed" : "Public Feed"
-					}
-					onChange={this._onSelect}
-				>
-					<option value="Public Feed">Public Feed</option>
-					<option value="Private Feed">Private Feed</option>
-				</select>
-				<button
-					onClick={async () => {
-						this.setState({ posts: await this.getPosts() });
-					}}
-				>
-					Refresh
-				</button>
-				{this.state.posts.map(post => <Post key={Math.floor(Math.random() * 10000)} artist={post.username} picture={JSON.parse(post.picture)} />)}
-			</div>
-		);
-	}
+const Feed = () => {
+	const [isPrivate, setPrivate] = useState(false);
+	const [posts, setPosts] = useState([]);
+	useEffect(async () =>
+		setPosts(await getPosts())
+		, []);
+	return (
+		<div className="bg-light">
+			<Title />
+			<select
+				value={
+					isPrivate ? "Private Feed" : "Public Feed"
+				}
+				onChange={(e) => _onSelect(e, setPrivate)}
+			>
+				<option value="Public Feed">Public Feed</option>
+				<option value="Private Feed">Private Feed</option>
+			</select>
+			<button
+				onClick={async () => {
+					setPosts(await getPosts());
+				}}
+			>
+				Refresh
+			</button>
+			{posts.map(post => <Post key={Math.floor(Math.random() * 10000)} artist={post.username} picture={JSON.parse(post.picture)} />)}
+		</div>
+	);
 }
+
 
 export default Feed;

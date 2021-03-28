@@ -1,0 +1,14 @@
+canvas{
+    width: 500px;
+    margin: auto;
+}
+.postBox{
+    margin: auto;
+}
+
+.MuiBox-root {
+    width: 800px;
+    margin: auto;
+    margin-top: 1em;
+    padding: 10px;
+}
